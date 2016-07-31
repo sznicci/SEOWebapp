@@ -17,189 +17,203 @@ import javax.mail.internet.*;
 import javax.activation.*;
 
 public class Meres {
-	
-	public static JSONObject talalat(String key, String cx, String q, int start)throws Exception{
-				
-				String httpsURL = "https://www.googleapis.com/customsearch/v1?key="+key+"&cx="+cx+"&q="+q+"&start="+start;
 
-				URL myurl = new URL(httpsURL);
-		    		HttpsURLConnection con = (HttpsURLConnection)myurl.openConnection();
-		    		InputStream ins = con.getInputStream();
-		    		InputStreamReader isr = new InputStreamReader(ins);
-		    		BufferedReader in = new BufferedReader(isr);
+	public static JSONObject talalat(String key, String cx, String q, int start) throws Exception {
 
-		    		String inputLine;
-		    		StringBuffer str = new StringBuffer ("");
+		String httpsURL = "https://www.googleapis.com/customsearch/v1?key=" + key + "&cx=" + cx + "&q=" + q + "&start="
+				+ start;
 
-		    		while ((inputLine = in.readLine()) != null)
-		   		{
-		    	
-		    			str.append(inputLine);
-					str.append("\n");
-		    		}
+		URL myurl = new URL(httpsURL);
+		HttpsURLConnection con = (HttpsURLConnection) myurl.openConnection();
+		InputStream ins = con.getInputStream();
+		InputStreamReader isr = new InputStreamReader(ins);
+		BufferedReader in = new BufferedReader(isr);
 
-		    		in.close();
+		String inputLine;
+		StringBuffer str = new StringBuffer("");
 
-				JSONObject jsObject= new JSONObject(new JSONTokener(str.toString()));
-				return jsObject;
-				
+		while ((inputLine = in.readLine()) != null) {
+
+			str.append(inputLine);
+			str.append("\n");
+		}
+
+		in.close();
+
+		JSONObject jsObject = new JSONObject(new JSONTokener(str.toString()));
+		return jsObject;
+
 	}
-	
-	public static void historybaIr(Connection con, String kulcsszo, String oldalcim) throws Exception{
 
-        Statement st1 = null;
-        ResultSet rs1 = null;
+	public static void historybaIr(Connection con, String kulcsszo, String oldalcim) throws Exception {
 
-        Statement st3 = null;
-        ResultSet rs3 = null;
+		Statement st1 = null;
+		ResultSet rs1 = null;
 
-        Statement st7 = null;
-        ResultSet rs7 = null;
+		Statement st3 = null;
+		ResultSet rs3 = null;
 
-        PreparedStatement pst4 = null;
-        
-		//smallest time diff.
-        String date= "SELECT gyakorisag.gyakorisag, timediff(now(),datum) AS kul  FROM history JOIN gyakorisag ON history_id=gyakorisag.id WHERE kulcsszo= '" + kulcsszo + "' " + "ORDER BY kul";
-        st1= con.createStatement();
-        rs1= st1.executeQuery( date );
-        
-      //ha mar van history-ban
-        if( rs1.next() && ( rs1.getLong(2) - rs1.getLong(1) >= 0 ) ){
+		Statement st7 = null;
+		ResultSet rs7 = null;
 
-            System.out.print( "legkisebbido: " + rs1.getLong(2) );
+		PreparedStatement pst4 = null;
 
-                  //kereses szora, kiirja, hogy hanyadik
-                  for( int j= 1; j< 11; j+=10 ){
+		// smallest time diff.
+		String date = "SELECT gyakorisag.gyakorisag, timediff(now(),datum) AS kul  FROM history JOIN gyakorisag ON history_id=gyakorisag.id WHERE kulcsszo= '"
+				+ kulcsszo + "' " + "ORDER BY kul";
+		st1 = con.createStatement();
+		rs1 = st1.executeQuery(date);
 
-                	  String urlEncoded= java.net.URLEncoder.encode(kulcsszo, "UTF-8");
-                	  
-                      JSONObject jsObject= talalat( "AIzaSyBfBUnw-iBzS2zEQ9BZ7zYTQZifdolAbn8", "018311114786755375724:ha7fx2iwxsi", urlEncoded, j );
-                      JSONArray jsObjectArray= jsObject.getJSONArray( "items" );
-                      Thread.sleep(2000);
-                      
-                      for( int i=0; i< jsObjectArray.length(); i++ ){
-                    	  JSONObject jsObjectObject= jsObjectArray.getJSONObject(i);
-                    	  int utolso;
-                    	  
-                    	  st3 = con.createStatement();
-                          rs3 = st3.executeQuery( "SELECT meresiEredmeny, tart_oldal, datum FROM history, gyakorisag WHERE history_id=gyakorisag.id AND kulcsszo= '" + kulcsszo + "' AND oldalcim= '" + oldalcim + "' AND tart_oldal='" + jsObjectObject.getString("link") + "' ORDER BY datum DESC" );
-                          //ha mar van eredmeny
-                          if ( rs3.next() ){
-                        	  utolso= rs3.getInt(1);
-                          }
-                          else{
-                        	  utolso= -1;
-                          }
+		// if it exists in history
+		if (rs1.next() && (rs1.getLong(2) - rs1.getLong(1) >= 0)) {
 
-                          st7 = con.createStatement();
-                          rs7 = st7.executeQuery( "SELECT id FROM gyakorisag WHERE kulcsszo= '" + kulcsszo + "' AND oldalcim= '" + oldalcim + "'" );
-                          rs7.next();
+			System.out.print("legkisebbido: " + rs1.getLong(2));
 
-                          if( jsObjectObject.getString("link").contains(oldalcim) ){
-                        	  //ha nem volt eredmeny, akkor -1 a valtozas
-                        	  if( utolso ==-1 ){
-                        		  pst4 = con.prepareStatement( "INSERT INTO history(history_id, meresiEredmeny, tart_oldal, valtozas, datum) VALUES("+ rs7.getInt(1) + ", " + (j+i) + ",\"" + jsObjectObject.getString("link") + "\", " + utolso + ", now())" );
-                        		  pst4.executeUpdate();
-                        	  }
-                        	  else{
-                        		  pst4 = con.prepareStatement( "INSERT INTO history(history_id, meresiEredmeny, tart_oldal, valtozas, datum) VALUES("+ rs7.getInt(1) + ", " + (j+i) + ",\"" + jsObjectObject.getString("link") + "\", " + (utolso-(j+i)) + ", now())" );
-                        		  pst4.executeUpdate();
-                        	  }
-                          }
+			// searching for words, prints out the rank
+			for (int j = 1; j < 11; j += 10) {
 
-                      }
-                  }
-        }
-        //ha meg nincs history-ban
-        else if ( rs1.isAfterLast() ){
-            try{
-                
-                //API results to file
-               //kereses szora, kiirja, hogy hanyadik
-                for( int j= 1; j< 11; j+=10 ){
+				String urlEncoded = java.net.URLEncoder.encode(kulcsszo, "UTF-8");
 
-                	String urlEncoded= java.net.URLEncoder.encode(kulcsszo, "UTF-8");
-                	
-                    JSONObject jsObject= talalat( "AIzaSyBfBUnw-iBzS2zEQ9BZ7zYTQZifdolAbn8", "018311114786755375724:ha7fx2iwxsi", urlEncoded, j );
-                    JSONArray jsObjectArray= jsObject.getJSONArray( "items" );
+				JSONObject jsObject = talalat("AIzaSyBfBUnw-iBzS2zEQ9BZ7zYTQZifdolAbn8",
+						"018311114786755375724:ha7fx2iwxsi", urlEncoded, j);
+				JSONArray jsObjectArray = jsObject.getJSONArray("items");
+				Thread.sleep(2000);
 
-                    for( int i=0; i< jsObjectArray.length(); i++ ){
-                        JSONObject jsObjectObject= jsObjectArray.getJSONObject(i);
+				for (int i = 0; i < jsObjectArray.length(); i++) {
+					JSONObject jsObjectObject = jsObjectArray.getJSONObject(i);
+					int utolso;
 
-                        st7 = con.createStatement();
-                        rs7 = st7.executeQuery( "SELECT id FROM gyakorisag WHERE kulcsszo= '" + kulcsszo + "' AND oldalcim= '" + oldalcim + "'" );
-                        rs7.next();
+					st3 = con.createStatement();
+					rs3 = st3.executeQuery(
+							"SELECT meresiEredmeny, tart_oldal, datum FROM history, gyakorisag WHERE history_id=gyakorisag.id AND kulcsszo= '"
+									+ kulcsszo + "' AND oldalcim= '" + oldalcim + "' AND tart_oldal='"
+									+ jsObjectObject.getString("link") + "' ORDER BY datum DESC");
+					// if there is a result
+					if (rs3.next()) {
+						utolso = rs3.getInt(1);
+					} else {
+						utolso = -1;
+					}
 
-                        if( jsObjectObject.getString("link").contains(oldalcim) ){
+					st7 = con.createStatement();
+					rs7 = st7.executeQuery("SELECT id FROM gyakorisag WHERE kulcsszo= '" + kulcsszo
+							+ "' AND oldalcim= '" + oldalcim + "'");
+					rs7.next();
 
-                            pst4 = con.prepareStatement( "INSERT INTO history(history_id, meresiEredmeny, tart_oldal, valtozas, datum) VALUES("+ rs7.getInt(1) + ", " + (j+i) + ",\"" + jsObjectObject.getString("link") + "\", " + 0 +", now())" );
-                            pst4.executeUpdate();
+					if (jsObjectObject.getString("link").contains(oldalcim)) {
+						// if there is no result then the change is -1
+						if (utolso == -1) {
+							pst4 = con.prepareStatement(
+									"INSERT INTO history(history_id, meresiEredmeny, tart_oldal, valtozas, datum) VALUES("
+											+ rs7.getInt(1) + ", " + (j + i) + ",\"" + jsObjectObject.getString("link")
+											+ "\", " + utolso + ", now())");
+							pst4.executeUpdate();
+						} else {
+							pst4 = con.prepareStatement(
+									"INSERT INTO history(history_id, meresiEredmeny, tart_oldal, valtozas, datum) VALUES("
+											+ rs7.getInt(1) + ", " + (j + i) + ",\"" + jsObjectObject.getString("link")
+											+ "\", " + (utolso - (j + i)) + ", now())");
+							pst4.executeUpdate();
+						}
+					}
 
-                        }
+				}
+			}
+		}
+		// if it is not exist in the history
+		else if (rs1.isAfterLast()) {
+			try {
 
-                    }
-                }
+				// API results to file
+				// searching for the word, prints out the rank
+				for (int j = 1; j < 11; j += 10) {
 
+					String urlEncoded = java.net.URLEncoder.encode(kulcsszo, "UTF-8");
 
-            } catch( Exception e ){//Catch exception if any
-                System.err.println( "Error: " + e.getMessage() );
-                  e.printStackTrace();
-            }
-        }
-    }
+					JSONObject jsObject = talalat("AIzaSyBfBUnw-iBzS2zEQ9BZ7zYTQZifdolAbn8",
+							"018311114786755375724:ha7fx2iwxsi", urlEncoded, j);
+					JSONArray jsObjectArray = jsObject.getJSONArray("items");
 
-	public static void futtatas(Connection con) throws Exception{
+					for (int i = 0; i < jsObjectArray.length(); i++) {
+						JSONObject jsObjectObject = jsObjectArray.getJSONObject(i);
+
+						st7 = con.createStatement();
+						rs7 = st7.executeQuery("SELECT id FROM gyakorisag WHERE kulcsszo= '" + kulcsszo
+								+ "' AND oldalcim= '" + oldalcim + "'");
+						rs7.next();
+
+						if (jsObjectObject.getString("link").contains(oldalcim)) {
+
+							pst4 = con.prepareStatement(
+									"INSERT INTO history(history_id, meresiEredmeny, tart_oldal, valtozas, datum) VALUES("
+											+ rs7.getInt(1) + ", " + (j + i) + ",\"" + jsObjectObject.getString("link")
+											+ "\", " + 0 + ", now())");
+							pst4.executeUpdate();
+
+						}
+
+					}
+				}
+
+			} catch (Exception e) {// Catch exception if any
+				System.err.println("Error: " + e.getMessage());
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void futtatas(Connection con) throws Exception {
 		Statement st = null;
-        ResultSet rs = null;
-        
-        Statement st1 = null;
-        ResultSet rs1 = null;
+		ResultSet rs = null;
 
-        Statement st3 = null;
-        ResultSet rs3 = null;
+		Statement st1 = null;
+		ResultSet rs1 = null;
 
-        Statement st7 = null;
-        ResultSet rs7 = null;
+		Statement st3 = null;
+		ResultSet rs3 = null;
 
-        PreparedStatement pst4 = null;
+		Statement st7 = null;
+		ResultSet rs7 = null;
 
-        try {
-            st = con.createStatement();
-            rs = st.executeQuery( "SELECT kulcsszo, oldalcim FROM gyakorisag" );
+		PreparedStatement pst4 = null;
 
-            while( rs.next() ) {
-            	historybaIr(con, rs.getString("kulcsszo"), rs.getString("oldalcim"));            
-            }
-        }catch( Exception e ){
-            System.err.println( "Error: " + e.getMessage() );
-            e.printStackTrace();
-      }
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT kulcsszo, oldalcim FROM gyakorisag");
+
+			while (rs.next()) {
+				historybaIr(con, rs.getString("kulcsszo"), rs.getString("oldalcim"));
+			}
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
 
 	}
-	
-	public static void main(String[] args) throws Exception{
-		Connection con= null;
-		String url = "jdbc:mysql://localhost:3306/seo";
-        String user = "root";
-        String password = "kklz96**";
 
-        try {
-            con = DriverManager.getConnection( url, user, password );
-        }catch( Exception e ){
-            System.err.println( "Error: " + e.getMessage() );
-            e.printStackTrace();
-            System.exit(0);
-        }
-        
+	public static void main(String[] args) throws Exception {
+		Connection con = null;
+		String url = "jdbc:mysql://localhost:3306/seo";
+		String user = "root";
+		String password = "kklz96**";
+
+		try {
+			con = DriverManager.getConnection(url, user, password);
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(0);
+		}
+
 		futtatas(con);
-		
+
 		try {
 			con.close();
-		}catch( Exception e ){
-            System.err.println( "Error: " + e.getMessage() );
-            e.printStackTrace();
+		} catch (Exception e) {
+			System.err.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 }
