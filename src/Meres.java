@@ -195,7 +195,7 @@ public class Meres {
 		Connection con = null;
 		String url = "jdbc:mysql://localhost:3306/seo";
 		String user = "root";
-		String password = "kklz96**";
+		String password = "Asdf34asdf";
 
 		try {
 			con = DriverManager.getConnection(url, user, password);

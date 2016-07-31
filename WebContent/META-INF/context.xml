@@ -1,7 +1,7 @@
  <Context>
  <Resource name="jdbc/seoDB" auth="Container" type="javax.sql.DataSource"
                maxActive="100" maxIdle="30" maxWait="10000"
-               username="root" password="kklz96**" driverClassName="com.mysql.jdbc.Driver"
+               username="root" password="Asdf34asdf" driverClassName="com.mysql.jdbc.Driver"
                url="jdbc:mysql://localhost:3306/seo"/>
 
 </Context>
