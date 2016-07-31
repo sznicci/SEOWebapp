@@ -79,13 +79,15 @@ import java.util.Map;
  * @author JSON.org
  * @version 2012-04-20
  */
+@SuppressWarnings("rawtypes")
 public class JSONArray {
 
 
     /**
      * The arrayList where the JSONArray's properties are kept.
      */
-    private final ArrayList myArrayList;
+    
+	private final ArrayList myArrayList;
 
 
     /**
