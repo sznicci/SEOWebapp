@@ -1,11 +1,8 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.io.*;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
@@ -165,17 +162,6 @@ public class Meres {
 	public static void futtatas(Connection con) throws Exception {
 		Statement st = null;
 		ResultSet rs = null;
-
-		Statement st1 = null;
-		ResultSet rs1 = null;
-
-		Statement st3 = null;
-		ResultSet rs3 = null;
-
-		Statement st7 = null;
-		ResultSet rs7 = null;
-
-		PreparedStatement pst4 = null;
 
 		try {
 			st = con.createStatement();

@@ -4,7 +4,7 @@
 <%@page import="java.util.*" %>
 <%@page import="javax.sql.*" %>
 <%@page import="java.sql.Time" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -80,14 +80,14 @@
 								while( !rs1.isAfterLast() ){
 								String preKulcsszo= rs1.getString("kulcsszo");
 						
-				%><hr>
+				%><hr/>
 				Kulcsszó: <%=preKulcsszo%>
-				<table border=1>
-					<tr><hr>
+				<table border="1">
+					<tr>
   						<th>Helyezés</th>
   						<th>Dátum</th>
   						<th>Oldalcím</th>
-  						<th>Változás előző méréshez képest</th><hr>
+  						<th>Változás előző méréshez képest</th>
 					</tr>
 				
 				

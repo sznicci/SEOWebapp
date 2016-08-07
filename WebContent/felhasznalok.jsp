@@ -32,9 +32,9 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
@@ -77,14 +77,14 @@
 			
 
 				<a href="felhHozzaad.jsp"><b>Új felhasználó hozzáadása</b></a>
-				<br><br><br>
+				<br/><br/><br/>
 			
 				Felhasználók listája:
 				
-				<table><hr>
+				<table>
 					<tr>
-  						<th>Sorszám</th> &nbsp;&nbsp;
-  						<th>Felhasználó</th> &nbsp;&nbsp;
+  						<th>Sorszám</th>
+  						<th>Felhasználó</th>
 					</tr>
 					
 					<% while( rs1.next() ){ %>
@@ -92,7 +92,7 @@
 							
 							<td><%=rs1.getString("id")%></td>
 							<td><%=rs1.getString("nev")%></td>
-							<td><a href="felhAdatKarbantartas.jsp?id=<%=rs1.getString("id")%>"><b>Módosít</b></a></td> &nbsp;&nbsp;
+							<td><a href="felhAdatKarbantartas.jsp?id=<%=rs1.getString("id")%>"><b>Módosít</b></a></td>
   							<td><a href="felhAdatKarbantartas.jsp?id=<%=rs1.getString("id")%>"><b>Töröl</b></a></td>
 						</tr>
 						<% 						
@@ -100,8 +100,6 @@
 					%>
 				</table>
 
-					
-				</table>
 			</div>
 		
 		</div>

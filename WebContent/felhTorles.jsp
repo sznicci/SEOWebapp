@@ -29,18 +29,18 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
 			<div id="content" align="center" style="float:left;">
 			
-				<br><br>
+				<br/><br/>
 				<table>
 					<tr>
-  						<th>Felhasználó neve: </th> &nbsp;&nbsp;
+  						<th>Felhasználó neve: </th>
   						<th></th>
 					</tr>
 					

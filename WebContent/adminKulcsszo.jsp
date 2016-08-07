@@ -4,7 +4,7 @@
 <%@page import="java.util.*" %>
 <%@page import="javax.sql.*" %>
 <%@page import="java.sql.Time" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -31,9 +31,9 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
@@ -74,11 +74,11 @@
 					int sorszam= 1;
 					%>
 					
-					<br>
+					<br/>
 					<a href="ujKulcsszo.jsp"><b>Új kulcsszó hozzáadása</b></a>
-					<br><br>
+					<br/><br/>
 			
-					Meglévő kulcsszavak listája:<br>
+					Meglévő kulcsszavak listája:<br/>
 					
 					<%
 								
@@ -87,17 +87,17 @@
 					%>
 			
 
-				<br>
+				<br/>
 				Felhasználó: <%
 				String preFelh= rs1.getString("nev");
 				out.println(preFelh); %>
-				<br>
-				<table><hr>
+				<br/>
+				<table>
 					<tr>
   						
   						<th>Kulcsszó</th>
   						<th>Weboldal cím</th>
-  						<th>Frissítési gyakoriság</th><hr>
+  						<th>Frissítési gyakoriság</th>
   						
 					</tr>
 					
@@ -107,7 +107,7 @@
 							<td><%=rs1.getString("kulcsszo")%></td>
 							<td><%=rs1.getString("oldalcim")%></td>
 							<td><%=rs1.getInt("gyakorisag")%></td>
-							<td><a href="felhWebKulcsszoKarbantartas.jsp?id=<%=rs1.getString("gyakorisag.id")%>"><b>Módosít</b></a></td> &nbsp;&nbsp;
+							<td><a href="felhWebKulcsszoKarbantartas.jsp?id=<%=rs1.getString("gyakorisag.id")%>"><b>Módosít</b></a></td>
   							<td><a href="felhWebKulcsszoKarbantartas.jsp?id=<%=rs1.getString("gyakorisag.id")%>"><b>Töröl</b></a></td>
 						</tr>
 						<% 

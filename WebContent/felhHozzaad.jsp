@@ -21,7 +21,7 @@
 		<div id="container">
 	
 			<div id="header01">
-				Felhasználó hozzáadása<br><br>
+				Felhasználó hozzáadása<br/><br/>
 			</div>
 		
 			<div id="header02" align="right">
@@ -29,21 +29,21 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
 			<div id="content" align="center" style="float:left;">
 
 				<form method="POST" action="sessionUjFelhasznalo.jsp">
-  						<p><b>Felhasználó neve:</b> <input type="text" name="nev" size="20"></p>
-  						<p><b>Felhasználó jelszava:</b> &nbsp;&nbsp;<input type="password" name="jelszo" size="20"></p>
-  						<p><b>Felhasználó cégneve:</b> &nbsp;&nbsp;<input type="text" name="cegnev" size="30"></p>
-  						<p><b>Cégjegyzékszám:</b> &nbsp;&nbsp;<input type="text" name="cegjegyzekszam" size="20"></p>
-  						<p><b>Felhasználó e-mail címe:</b> <input type="text" name="email" size="30"></p>
-  						<p><input type="submit" value="Létrehozás" name="letrehoz"></p><hr><hr>
+  						<p><b>Felhasználó neve:</b> <input type="text" name="nev" size="20"/></p>
+  						<p><b>Felhasználó jelszava:</b> &nbsp;&nbsp;<input type="password" name="jelszo" size="20"/></p>
+  						<p><b>Felhasználó cégneve:</b> &nbsp;&nbsp;<input type="text" name="cegnev" size="30"/></p>
+  						<p><b>Cégjegyzékszám:</b> &nbsp;&nbsp;<input type="text" name="cegjegyzekszam" size="20"/></p>
+  						<p><b>Felhasználó e-mail címe:</b> <input type="text" name="email" size="30"/></p>
+  						<p><input type="submit" value="Létrehozás" name="letrehoz"/></p><hr/><hr/>
   					
 					</form>
 			</div>

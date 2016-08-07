@@ -29,22 +29,22 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
 			<div id="content" align="center" style="float:left;">
 			
-				<br><br>
+				<br/><br/>
 				<table>
 					<tr>
-  						<th>Weboldal neve: </th> &nbsp;&nbsp;
+  						<th>Weboldal neve: </th>
   						<th></th>
 					</tr>
 					<tr>
-  						<th>Kulcsszó: </th> &nbsp;&nbsp;
+  						<th>Kulcsszó: </th>
   						<th></th>
 					</tr>
 					

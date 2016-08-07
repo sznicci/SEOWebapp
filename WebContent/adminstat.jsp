@@ -32,9 +32,9 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
@@ -78,9 +78,9 @@
 				
 				
 			%>
-				<br>
+				<br/>
 				Kulcsszó: <%=preKulcsszo%>
-				<table border=1><br>
+				<table border="1">
 					<tr>
   						<th>Helyezés</th>
   						<th>Hónap</th>

@@ -4,7 +4,7 @@
 <%@page import="java.util.*" %>
 <%@page import="javax.sql.*" %>
 <%@page import="java.sql.Time" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -14,6 +14,7 @@
 	
 	
 	<body>
+		<div id="container">
 		<%
         String sessionNev =  (String)session.getAttribute("nev");
 		
@@ -22,7 +23,7 @@
 		}       
 		else if( sessionNev!=null && sessionNev.equals("admin") ){%>
 	
-		<div id="container">
+		
 	
 			<div id="header01">
 				Kulcsszó karbantartás
@@ -33,9 +34,9 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
@@ -87,21 +88,19 @@
 					pst2 = c1.prepareStatement(sq2);
 					int intrs2 = pst2.executeUpdate();
 %>
-					<br><br>
+					<br/><br/>
 				A kulcsszót sikeresen módosította!
 			</div>
 		
 		</div>
 		
 
-	</body>
-</html>
 
 <%
 
-				}else if ( torol != null ){
+				}else if ( torol != null ){%>
 	
-					String idString= request.getParameter("id");
+					<%String idString= request.getParameter("id");
 					int id= Integer.parseInt(idString);	
 	
 					java.sql.Connection c1;
@@ -139,15 +138,16 @@
 	
 				%>
 	
-	<br><br>
+<br/><br/>
 			A kulcsszót sikeresen törölte!
-			</div>
-		</div>
+			<div/>
+		
 	</body>
 </html>
 
-<%}
+		<%}
 		}
+		
         else{
         	response.sendRedirect("stat.jsp");
         }			

@@ -32,9 +32,9 @@
 			</div>
 		
 			<div id="menu" style="height:200px;width:150px;float:left;">
-			<br>
-				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br><br><br>
-				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br><br><br>
+			<br/>
+				<a href="felhasznalok.jsp"><b>Felhasználók</b></a><br/><br/><br/>
+				<a href="adminKulcsszo.jsp"><b>Weboldalak, kulcsszavak</b></a><br/><br/><br/>
 				<a href="adminstat.jsp"><b>Statisztikák</b></a>
 			</div>
 		
@@ -77,15 +77,15 @@
 					
 					%>
 				<%=rs1.getString("nev")%> adatainak módosítása:
-				<br><br><hr>
+				<br/><br/><hr/>
 				<form method="POST" action="sessionAdatValtozas.jsp?id=<%=rs1.getString("id")%>">
-  						<p><b>Felhasználó neve:</b> <input type="text" name="nev" size="10" value="<%=rs1.getString("nev")%>"></p>
-  						<p><b>Felhasználó jelszava:</b> &nbsp;&nbsp;<input type="password" name="jelszo" size="20" value="<%=rs1.getString("jelszo")%>"></p>
-  						<p><b>Felhasználó cégneve:</b> &nbsp;&nbsp;<input type="text" name="cegnev" size="30" value="<%=rs1.getString("cegnev")%>"></p>
-  						<p><b>Cégjegyzékszám:</b> <input type="text" name="cegjegyzekszam" size="10" value="<%=rs1.getString("cegjegyzekszam")%>"></p>
-  						<p><b>Felhasználó e-mail címe:</b> <input type="text" name="email" size="30" value="<%=rs1.getString("email")%>"></p>
-  						<p><input type="submit" value="Módosít" name="modosit"></p><hr><hr><br>
-  						<p><input type="submit" value="Töröl" name="torol"></p>
+  						<p><b>Felhasználó neve:</b> <input type="text" name="nev" size="10" value="<%=rs1.getString("nev")%>"/></p>
+  						<p><b>Felhasználó jelszava:</b> &nbsp;&nbsp;<input type="password" name="jelszo" size="20" value="<%=rs1.getString("jelszo")%>"/></p>
+  						<p><b>Felhasználó cégneve:</b> &nbsp;&nbsp;<input type="text" name="cegnev" size="30" value="<%=rs1.getString("cegnev")%>"/></p>
+  						<p><b>Cégjegyzékszám:</b> <input type="text" name="cegjegyzekszam" size="10" value="<%=rs1.getString("cegjegyzekszam")%>"/></p>
+  						<p><b>Felhasználó e-mail címe:</b> <input type="text" name="email" size="30" value="<%=rs1.getString("email")%>"/></p>
+  						<p><input type="submit" value="Módosít" name="modosit"/></p><hr/><hr/><br/>
+  						<p><input type="submit" value="Töröl" name="torol"/></p>
 				</form>
 			</div>
 		
