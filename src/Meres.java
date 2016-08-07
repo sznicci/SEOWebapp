@@ -8,10 +8,10 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import org.json.*;
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+//import java.util.*;
+//import javax.mail.*;
+//import javax.mail.internet.*;
+//import javax.activation.*;
 
 public class Meres {
 
